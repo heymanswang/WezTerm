@@ -41,15 +41,6 @@ config.initial_cols = 120
 config.window_decorations = "RESIZE"
 config.window_close_confirmation = "AlwaysPrompt"
 
--- 默认启动程序与工作目录
--- 根据操作系统选择不同的默认 shell
-if wezterm.target_triple:find("windows") then
-  config.default_prog = { 'powershell.exe' }
-else
-  config.default_prog = { '/bin/zsh' }
-end
-config.default_cwd = wezterm.home_dir
-
 -- 状态栏配置
 config.status_update_interval = 1000
 
