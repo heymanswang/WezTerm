@@ -3,8 +3,7 @@ local wezterm = require 'wezterm'
 local M = {}
 
 function M.apply_to_config(config)
-  -- 统一设置颜色主题为 Nord (Gogh)
-  config.color_scheme = "Nord (Gogh)"
+  config.color_scheme = "Dracula"
   
   -- 设置透明度和模糊效果
   config.window_background_opacity = 0.95

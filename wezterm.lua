@@ -1,5 +1,6 @@
 local wezterm = require 'wezterm'
 local theme = require 'theme'
+local keys = require 'keys'
 
 local config = wezterm.config_builder()
 
@@ -12,12 +13,16 @@ config.automatically_reload_config = true
 -- 应用主题设置
 theme.apply_to_config(config)
 
+-- 应用键盘快捷键设置
+keys.apply_to_config(config)
+
+
 -- 窗口内边距
 config.window_padding = {
     left = 10,
     right = 10,
-    top = 0,
-    bottom = 0,
+    top = 15,
+    bottom = 10,
 }
 
 -- 窗口行数
@@ -26,39 +31,16 @@ config.initial_cols = 120
 
 -- 窗口装饰
 -- config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
-config.window_decorations = "INTEGRATED_BUTTONS"
+config.window_decorations = "RESIZE"
 config.window_close_confirmation = "AlwaysPrompt"
 
--- 键盘快捷键配置
-config.keys = {
-  -- 新建标签页
-  {
-    key = 't',
-    mods = 'CMD',
-    action = wezterm.action.SpawnTab 'CurrentPaneDomain',
-  },
-  -- 垂直分割窗格
-  {
-    key = '|',
-    mods = 'CMD|SHIFT',
-    action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
-  },
-  -- 水平分割窗格
-  {
-    key = '_',
-    mods = 'CMD|SHIFT',
-    action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
-  },
-  -- 切换全屏
-  {
-    key = 'f',
-    mods = 'CMD|SHIFT',
-    action = wezterm.action.ToggleFullScreen,
-  },
-}
-
 -- 默认启动程序与工作目录
-config.default_prog = { '/bin/zsh' }
+-- 根据操作系统选择不同的默认 shell
+if wezterm.target_triple:find("windows") then
+  config.default_prog = { 'powershell.exe' }
+else
+  config.default_prog = { '/bin/zsh' }
+end
 config.default_cwd = wezterm.home_dir
 
 -- 状态栏配置
@@ -66,5 +48,9 @@ config.status_update_interval = 1000
 
 -- 滚动配置
 config.scrollback_lines = 10000
-quit_when_all_windows_are_closed = false
+
+-- 防止关闭最后一个标签页时自动退出
+config.quit_when_all_windows_are_closed = false
+config.exit_behavior = "Close"  -- 关闭最后一个标签页时保持程序运行
+
 return config
