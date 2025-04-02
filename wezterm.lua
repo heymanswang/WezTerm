@@ -1,6 +1,7 @@
 local wezterm = require 'wezterm'
 local theme = require 'theme'
 local keys = require 'keys'
+local tabbar = require 'tabbar'
 
 local config = wezterm.config_builder()
 
@@ -16,6 +17,8 @@ theme.apply_to_config(config)
 -- 应用键盘快捷键设置
 keys.apply_to_config(config)
 
+-- 应用标签栏设置
+tabbar.apply_to_config(config)
 
 -- 窗口内边距
 config.window_padding = {
