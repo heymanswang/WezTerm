@@ -6,7 +6,7 @@ function M.apply_to_config(config)
   config.color_scheme = "Dracula"
   
   -- 设置透明度和模糊效果
-  config.window_background_opacity = 0.95
+  config.window_background_opacity = 0.90
   
   -- 如果是macOS，添加模糊效果
   if wezterm.target_triple:find("apple") then
